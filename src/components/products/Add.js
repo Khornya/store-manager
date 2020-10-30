@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,12 +39,13 @@ class Add extends Component {
             console.log(error);
         });
         event.preventDefault();
+        this.props.history.push(`/`);
     }
 
     handleChange(event) {
         this.setState(
             {
-                [event.target.name] : (event.target.type !== "checkbox") ? event.target.value : event.target.checked
+                [event.target.name]: (event.target.type !== "checkbox") ? event.target.value : event.target.checked
             }
         )
     }
@@ -105,7 +107,14 @@ class Add extends Component {
                             className={classes.submit}
                         >
                             Envoyer
-              </Button>
+                        </Button>
+                        <Button fullWidth 
+                            className={classes.mt4}
+                            variant="contained"
+                            color="primary"
+                            component={Link} to="/">
+                            Retour
+                        </Button>
                     </form>
                 </div>
             </>

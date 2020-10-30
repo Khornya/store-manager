@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -39,7 +40,7 @@ class List extends Component {
 
         return (
             <>
-                <Button className={classes.mt4} variant="contained" color="primary">
+                <Button className={classes.mt4} variant="contained" color="primary" component={Link} to="/test">
                     Ajouter
                 </Button>
                 <TableContainer className={classes.mt4} component={Paper}>
