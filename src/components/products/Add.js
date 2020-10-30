@@ -37,6 +37,7 @@ class Add extends Component {
             position: this.state.position
         }).then(function () {
             console.log("Document created");
+            self.props.history.push(`/`);
         }).catch(function (error) {
             if (error.name === 'conflict') {
                 self.handleConflict(now, self);
@@ -44,8 +45,8 @@ class Add extends Component {
                 console.error(error);
             }
         });
+
         event.preventDefault();
-        this.props.history.push(`/`);
     }
 
     handleChange(event) {
@@ -67,15 +68,20 @@ class Add extends Component {
                     position: self.state.position
                 }).then(function () {
                     console.log("Document updated");
+                    self.props.history.push(`/`);
                 }).catch(function (error) {
                     console.error(error)
+                    self.props.history.push(`/`);
                 })
             } else {
                 console.log("Document already has a newer version")
+                self.props.history.push(`/`);
             }
         }).catch(function (error) {
             console.error(error);
+            self.props.history.push(`/`);
         });
+
     }
 
     render() {
