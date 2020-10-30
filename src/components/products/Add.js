@@ -27,15 +27,21 @@ class Add extends Component {
     }
 
     handleSubmit(event) {
+        const self = this;
+        const now = Date.now();
         dbInstance.post({
-            name: this.state.name,
-            createdAt: Date.now(),
+            _id: this.state.name,
+            createdAt: now,
             stock: parseInt(this.state.stock),
             position: this.state.position
         }).then(function () {
             console.log("Document created");
         }).catch(function (error) {
-            console.log(error);
+            if (error.name === 'conflict') {
+                self.handleConflict(now, self);
+            } else {
+                console.error(error);
+            }
         });
         event.preventDefault();
     }
@@ -43,9 +49,31 @@ class Add extends Component {
     handleChange(event) {
         this.setState(
             {
-                [event.target.name] : (event.target.type !== "checkbox") ? event.target.value : event.target.checked
+                [event.target.name]: (event.target.type !== "checkbox") ? event.target.value : event.target.checked
             }
         )
+    }
+
+    handleConflict(now, self) {
+        dbInstance.get(self.state.name).then(function (doc) {
+            if (now > doc.createdAt) {
+                dbInstance.post({
+                    _id: self.state.name,
+                    _rev: doc._rev,
+                    createdAt: now,
+                    stock: parseInt(self.state.stock),
+                    position: self.state.position
+                }).then(function () {
+                    console.log("Document updated");
+                }).catch(function (error) {
+                    console.error(error)
+                })
+            } else {
+                console.log("Document already has a newer version")
+            }
+        }).catch(function (error) {
+            console.error(error);
+        });
     }
 
     render() {

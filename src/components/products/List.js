@@ -46,8 +46,7 @@ class List extends Component {
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Id</TableCell>
-                                <TableCell align="right">Nom</TableCell>
+                                <TableCell>Nom</TableCell>
                                 <TableCell align="right">Stock</TableCell>
                                 <TableCell align="right">Position</TableCell>
                             </TableRow>
@@ -59,7 +58,6 @@ class List extends Component {
                                         <TableCell component="th" scope="row">
                                             {row.id}
                                         </TableCell>
-                                        <TableCell align="right">{row.doc.name}</TableCell>
                                         <TableCell align="right">{row.doc.stock}</TableCell>
                                         <TableCell align="right">{row.doc.position.toString()}</TableCell>
                                     </TableRow>)
